@@ -1,30 +1,58 @@
 module Main exposing (main)
 
 import Browser
-import HelloWorld exposing (helloWorld)
-import Html exposing (Html, div, img)
-import Html.Attributes exposing (src, style)
-import Msg exposing (Msg(..))
+import Html exposing (..)
+import Html.Attributes exposing (..)
 
 
-main : Program () Int Msg
-main =
-    Browser.sandbox { init = 0, update = update, view = view }
+
+--- MODEL ---
 
 
-update : Msg -> number -> number
+type Model
+    = Model
+
+
+
+--- UPDATE ---
+
+
+type Msg
+    = NoMessageYet
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Increment ->
-            model + 1
-
-        Decrement ->
-            model - 1
+        NoMessageYet ->
+            ( model, Cmd.none )
 
 
-view : Int -> Html Msg
+
+--- VIEW ---
+
+
+view : Model -> Html Msg
 view model =
     div []
-        [ img [ src "/logo.png", style "width" "300px" ] []
-        , helloWorld model
+        [ h1 [] [ text "We're up and running!" ]
         ]
+
+
+
+--- MAIN ---
+
+
+init : flags -> ( Model, Cmd Msg )
+init _ =
+    ( Model, Cmd.none )
+
+
+main : Program () Model Msg
+main =
+    Browser.element
+        { init = init
+        , update = update
+        , view = view
+        , subscriptions = \_ -> Sub.none
+        }

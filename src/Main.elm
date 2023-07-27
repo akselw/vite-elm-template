@@ -1,8 +1,9 @@
 module Main exposing (main)
 
 import Browser
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Css
+import Html.Styled exposing (..)
+import Html.Styled.Attributes as Attributes
 
 
 
@@ -53,6 +54,6 @@ main =
     Browser.element
         { init = init
         , update = update
-        , view = view
+        , view = view >> Html.Styled.toUnstyled
         , subscriptions = \_ -> Sub.none
         }
